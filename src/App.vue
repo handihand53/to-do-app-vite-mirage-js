@@ -49,7 +49,7 @@ export default {
     }
   },
   created () {
-    fetch(`/example-api-endpoint`, {
+    fetch(`/api/example-api-endpoint`, {
         method: 'GET',
       })
       .then((res) => res.json())

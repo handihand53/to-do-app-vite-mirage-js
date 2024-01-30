@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const BLIBLI = 'localhost:8080'
+const SERVER = 'localhost:8080'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/api/': {
-        target: BLIBLI,
+        target: SERVER,
         changeOrigin: true
       }
     }
