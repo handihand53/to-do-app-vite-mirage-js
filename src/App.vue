@@ -26,36 +26,56 @@
 export default {
   data () {
     return {
-      actionInput: '',
-      toDoList: [
-        {
-          id: 1,
-          action: 'hello world'
-        },
-        {
-          id: 2,
-          action: 'blibli binus training'
-        }
-      ]
+      toDoList: [],
+      actionInput: ''
     }
   },
-  computed: {},
+  computed: {
+  },
   methods: {
-    addToList () {
-    },
-    deleteItem (id) {
+    addToList() {
+      fetch(`/api/todo`, {
+        method: 'POST',
+        body: {
+          action: this.actionInput 
+        }
+      })
+      .then((res) => res.json())
+      .then((body) => {
+        alert(body.status)
+        this.fetchToDoList()
+        this.actionInput = ''
+      })
     },
     fetchToDoList () {
+      fetch(`/api/todo`, {
+        method: 'GET',
+      })
+      .then((res) => res.json())
+      .then((body) => {
+        this.toDoList = body.data
+      })   
+    },
+    deleteItem(id) {
+      fetch(`/api/todo/${id}`, {
+        method: 'DELETE',
+      })
+      .then((res) => res.json())
+      .then((body) => {
+        this.toDoList = body.data
+        alert(body.status)
+        this.fetchToDoList()
+      })   
     }
   },
   created () {
-    fetch(`/api/example-api-endpoint`, {
+    fetch(`/example-api-endpoint`, {
         method: 'GET',
       })
       .then((res) => res.json())
       .then((body) => {
         console.log(body)
-      })
+      })  
   }
 }
 </script>
